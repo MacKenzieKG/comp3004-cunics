@@ -3,103 +3,90 @@
 using namespace std;
 
 EmployeeLoader::EmployeeLoader(char* sourceFileName){
-    inFile.open(sourceFileName, ifstream::in);
+  inFile.open(sourceFileName, ifstream::in);
 }
 
-int EmployeeLoader::loadTo(EmployeeList* list){
-    string parsedLine[2] = {"",""};
-	while(parsedLine[1] != "FILE" && !(inFile.eof())){
-    readAndParse(parsedLine);
-		
-		Employee* newEmp = 0;
-		
-		if(parsedLine[0] == "Type"){
-			if(parsedLine[1] == "TermEmployee")
-				newEmp = new TermEmployee();
-			else if(parsedLine[1] == "ContinuingEmployee")
-				newEmp = new ContinuingEmployee();
-		}
-		
-    readAndParse(parsedLine);
+void EmployeeLoader::loadTo(EmployeeList* list){
+  char line[2000];
+  char* res;
+  char lastEmployee[256];
+  char lastField[256];
 
-    istringstream ss(parsedLine[1]);
-    int q;
-    ss >> q;
+  lastEmployee[0] = '\0';
+  lastField[0] = '\0';
 
-    if(parsedLine[0] == "EmployeeID"){
-        newEmp->setIDNumber(q);
-		}
+  while(!(inFile.eof())){
+    res = fgets(line, 2000, inFile);
+
+    if(res == NULL)
+      break;
+
+    tokenizer(line);
+
+    Employee* newEmp = 0;
 		
-    readAndParse(parsedLine);
-		
-		if(parsedLine[0] == "FirstName"){
-      newEmp->setFirstName(parsedLine[1]);
-		}
+    if(strcmp(tokenizedLine[TYPE], "Term") == 0)
+      newEmp = new TermEmployee();
+	
+    else if(strcmp(tokenizedLine[TYPE], "Continuing") == 0)
+      newEmp = new ContinuingEmployee();
+   
+  //This check is for if it's the same employee number as last time; not sure if it works so it's commented out for now  
+  //  if(strcmp(tokenizedLine[EID], lastEmployee) != 0) {
+      newEmp->setIDNumber(tokenizedLine[EID]);
+      newEmp->setFirstName(tokenizedLine[FIRST_NAME]);
+      newEmp->setLastNAme(tokenizedLine[LAST_NAME]);
+   // }
+
+    Role* newRole = new Role();
+    if(strcmp(tokenizedLine[ROLE], "Faculty")	== 0)
+      newRole->setRoleType(FACULTY);
+
+    if(strcmp(tokenizedLine[ROLE], "Staff") == 0)
+      newRole->setRoleType(STAFF);
+
+    if(strcmp(tokenizedLine[ROLE], "RA") == 0)
+      newRole->setRoleType(RA);
+
+    if(strcmp(tokenizedLine[ROLE], "TA") == 0)
+      newRole->setRoleType(TA);
+
+    if(strcmp(tokenizedLine[TIME], "Part-time") == 0)
+      newRole->setRoleTime(PART_TIME);
+
+    if(strcmp(tokenizedLine[TIME], "Full-time") == 0)
+      newRole->setRoleTime(FULL_TIME);			
+			
+    newEmp->addRole(newRole);
+			
+    list->addEmployee(newEmp);
     
-    readAndParse(parsedLine);
-		
-		if(parsedLine[0] == "LastName"){
-      newEmp->setLastName(parsedLine[1]);
-		}
-		
-    readAndParse(parsedLine);
-		
-		while(parsedLine[0] != "END"){
-			Role* newRole = new Role();
-			if(parsedLine[0] == "Role"){
-        if(parsedLine[1] == "Faculty") {
-            newRole->setRoleType(FACULTY);
-        }
-        else if (parsedLine[1] == "Staff"){
-            newRole->setRoleType(STAFF);
-        }
-        else if (parsedLine[1] == "TA"){
-            newRole->setRoleType(TA);
-        }
-        else if (parsedLine[1] == "RA"){
-            newRole->setRoleType(RA);
-				}
-			}
-			
-      readAndParse(parsedLine);
-			
-			if(parsedLine[0] == "RoleTime"){
-				if(parsedLine[1] == "PART_TIME")
-					newRole->setRoleTime(PART_TIME);
-				else if (parsedLine[1] == "FULL_TIME")
-					newRole->setRoleTime(FULL_TIME);
-			}
-			
-			newEmp->addRole(newRole);
-			
-            readAndParse(parsedLine);
-		}
-		
-		if(parsedLine[1] == "EMPLOYEE" || parsedLine[1] == "FILE"){
-            list->addEmployee(newEmp);
-		}
-	}
-    return NULL;
+
+    strcpy(lastField, tokenizedLine[END_DATE]);
+    strcpy(lastEmployee, tokenizedLine[EID]);
+  }
 }
 
-void EmployeeLoader::parseAttribute(string toParse, string parsed[2]){
-	int currPos=0;
-    parsed[0] = "";
-    parsed[1] = "";
-    for(int i=0;(unsigned)i<toParse.size();i++){
-        if(toParse[i] == ':')
-			currPos++;
-		else
-			parsed[currPos]+=toParse[i];
+
+int EmployeeLoader::tokenizer(char line[2000]) {
+  char* t = ",\n";
+
+  int n = 0;
+  int numRead = 0;
+
+  char* token = strtok(line, t);
+  strcpy(tokenizedLine[numRead++], token);
+
+  int tot = 0;
+  while (token != NULL) {
+    token - strtok(NULL, t);
+
+    if(token == NULL) {
+      return numRead;
     }
-}
 
-void EmployeeLoader::readAndParse(string parse[2]){
-	char* currLine = 0;
-	
-	if(inFile.good() && !inFile.eof()){
-        inFile.getline(currLine,MAX_STR);
-	}
-	
-    parseAttribute(currLine, parse);
+    strcpy(tokenizedLine[numRead++], token);
+  }
+
+  return numRead;
 }
