@@ -9,26 +9,26 @@ using namespace std;
 class Role{
 
 	public:
-    Role();
-		Role (RoleTime, RoleType);
-    Role (RoleTime, RoleType, float);
+    	Role();
+	 	Role (RoleTime, RoleType);
+    	Role (RoleTime, RoleType, double);
     
-		float getPay();
-		void setPay(float);
+		double getPay();
+		void setPay(double);
     
 		RoleTime getRoleTime();
-    void setRoleTime(RoleTime);
+    	void setRoleTime(RoleTime);
     
-    RoleType getRoleType();
-    void setRoleType(RoleType);
+	    RoleType getRoleType();
+	    void setRoleType(RoleType);
     
-		void givePercentageRaise(float);
-		void giveRaise(float);
+		void givePercentageRaise(double);
+		void giveRaise(double);
 
 	protected:
-    float pay;
+    	double pay;
 		RoleTime roleTime;
-    RoleType roleType;
+    	RoleType roleType;
 };
 
 #endif

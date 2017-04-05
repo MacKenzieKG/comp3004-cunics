@@ -2,21 +2,23 @@
 
 ContinuingEmployee::ContinuingEmployee(){}
 
-ContinuingEmployee::ContinuingEmployee(string fName, string lName, Role* role): Employee (fName, lName, role){}
+ContinuingEmployee::ContinuingEmployee(string fName, string lName, Role* role): Employee (fName, lName){
+	addRole(role);
+}
 
-void ContinuingEmployee::setLeave(float percentage){
+void ContinuingEmployee::startLeave(float percentage, Date sDate, Date eDate){
+	onLeave = true;
+	leavePercentage = percentage;
+  leaveStartDate = sDate;
+  leaveEndDate = eDate;
+}
 
-	if (onLeave==true)
-		onLeave=false;
-	else
-		onLeave=true;	
-
-	leavePercentage= percentage;
+void ContinuingEmployee::offLeave(){
+  onLeave = false;
 }
 
 bool ContinuingEmployee::approveRole(Role* role){
-  if(role->getRoleTime() != FULL_TIME)
-    if(size == 0)
-      return true;
-  return false;
+  if(role->getRoleTime() == FULL_TIME && size > 0)
+  	return false;
+  return true;
 }

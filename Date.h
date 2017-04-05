@@ -3,12 +3,14 @@
 
 #include <string>
 #include <cstdlib>
+#include <ostream>
 
 using namespace std;
 
 class Date{
   public:
     Date();
+    Date(string);
     Date(int,int,int);
     
     void setDate(int,int,int);
@@ -19,8 +21,22 @@ class Date{
     int getMonth();
     void setYear(int);
     int getYear();
+    
+    Date& operator=(Date);
+    bool operator==(Date);
+    bool operator>(Date);
+    bool operator<(Date);
+    bool operator>=(Date);
+    bool operator<=(Date);
+    ostream& operator<<(ostream& os);
+
+    int weeksSince(Date date);
+    int fromString(string);
+    
   private:
     int day, month, year;
+
+    int convertToDays();
 };
 
 #endif

@@ -9,12 +9,13 @@ using namespace std;
 class EmployeeList {
 	public:
 		int addEmployee(Employee*);
-		Employee* getEmployee(int);
+		Employee* getEmployeeByIndex(int);
 		Employee* getEmployeeByID(int);
+    Employee* getEmployeeByName(string,string);
 		
 		Employee* operator[](int);
 	private:
-        vector<Employee*>* employeeVector;
+    vector<Employee*>* employeeVector;
 };
 
 #endif

@@ -4,54 +4,32 @@ int Employee::nextIDNum = 100000;
 
 Employee::Employee(){}
 
-Employee::Employee(string fName, string lName, Role* role){
+Employee::Employee(string fName, string lName){
 	firstName = fName;
 	lastName = lName;
 	IDNumber = nextIDNum++;
 	size = 0;
-	addRole(role);
 }
 
-Employee::Employee(string fName, string lName, Role* role, int empNum){
+Employee::Employee(string fName, string lName, int empNum){
 	firstName = fName;
 	lastName = lName;
 	IDNumber = nextIDNum++;
 	size = 0;
-	addRole(role);
-  setIDNumber(empNum);
+    setIDNumber(empNum);
 }
 
-string Employee::getName(){
-	return firstName + " " + lastName;
-}
-
-void Employee::setName(string fName, string lName){
-	firstName = fName;
-  lastName = lName;
-}
-
-string Employee::getFirstName(){
-	return firstName;
-}
-
-void Employee::setFirstName(string fName){
-	firstName = fName;
-}
-
-string Employee::getLastName(){
-	return lastName;
-}
-
-void Employee::setLastName(string lName){
-	lastName = lName;
-}
-
-int Employee::getIDNumber(){
-    return IDNumber;
-}
+string Employee::getName(){return firstName + " " + lastName;}
+void Employee::setName(string fName, string lName){	firstName = fName;lastName = lName;}
+string Employee::getFirstName(){return firstName;}
+void Employee::setFirstName(string fName){firstName = fName;}
+string Employee::getLastName(){return lastName;}
+void Employee::setLastName(string lName){lastName = lName;}
+int Employee::getIDNumber(){return IDNumber;}
+Date Employee::getStartDate(){return startDate;}
+void Employee::setStartDate(Date newStart){startDate = newStart;}
 
 int Employee::addRole(Role* role){
-
   if(!approveRole(role))
 	  return -1;
 
@@ -59,8 +37,42 @@ int Employee::addRole(Role* role){
   return 1;
 }
 
-float Employee::getSalary(){
-  float total = 0.0;
+int Employee::removeRole(Role* role){
+  if(size <= 1)
+    return -1;
+
+  for(int i=0;i<size;i++){
+    if(roles[i] == role){
+      for(int x=i+1;x<size;x++){
+        roles[i] = roles[x];
+        i++;
+      }
+      size--;
+      return 1;
+    }
+  }
+  return -1;
+}
+
+int Employee::removeRole(RoleType roleType){
+  if(size <= 1)
+    return -1;
+
+  for(int i=0;i<size;i++){
+    if(roles[i]->getRoleType() == roleType){
+      for(int x=i+1;x<size;x++){
+        roles[i] = roles[x];
+        i++;
+      }
+      size++;
+      return 1;
+    }
+  }
+  return -1;
+}
+
+double Employee::getSalary(){
+  double total = 0.0;
   for(int i = 0; i < size; i++){
     total += roles[i]->getPay();
   }

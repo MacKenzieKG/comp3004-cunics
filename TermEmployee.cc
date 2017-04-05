@@ -1,11 +1,16 @@
 #include "TermEmployee.h"
 
-TermEmployee::TermEmployee(){}
+TermEmployee::TermEmployee(){employeeType = TERM;}
 
-TermEmployee::TermEmployee(string fName, string lName, Date sDate, Date eDate, Role* r):Employee (fName, lName, r){
+TermEmployee::TermEmployee(string fName, string lName, Date sDate, Date eDate, Role* role):Employee (fName, lName){
 	startDate = sDate ;
 	endDate = eDate;
+    employeeType = TERM;
+  	addRole(role);
 }
+
+Date TermEmployee::getEndDate(){return endDate;}
+void TermEmployee::setEndDate(Date newEnd){endDate = newEnd;}
 
 bool TermEmployee::approveRole(Role* role){
   if(role->getRoleType() != FACULTY){

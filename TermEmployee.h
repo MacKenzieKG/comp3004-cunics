@@ -11,14 +11,16 @@ using namespace std;
 class TermEmployee: public Employee{
 
 	public:
-    TermEmployee();
+    	TermEmployee();
 		TermEmployee(string, string, Date, Date, Role*);
 		
+		Date getEndDate();
+		void setEndDate(Date);
+		 
 	protected:
-		Date startDate;
 		Date endDate;
     
-    bool approveRole(Role*);
+    	bool approveRole(Role*);
 };
 
 #endif

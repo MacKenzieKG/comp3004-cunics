@@ -2,8 +2,9 @@
 #define DEFS_H
 
 
-typedef enum { FULL_TIME, PART_TIME } RoleTime;
-typedef enum { STAFF, FACULTY, TA, RA} RoleType;
+typedef enum { FULL_TIME, PART_TIME }   RoleTime;
+typedef enum { STAFF, FACULTY, TA, RA } RoleType;
+typedef enum { CONTINUING, TERM }       EmployeeType;
 
 #define MAX_ROLE  3
 #define MAX_STR 64
