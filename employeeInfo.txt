@@ -1,0 +1,7 @@
+Type:ContinuingEmployee;
+Salary:4000.1;
+EmployeeID:123457;
+Name:Ali_Hassan;
+Role:Faculty;
+RoleTime:FULL_TIME;
+END:FILE;
