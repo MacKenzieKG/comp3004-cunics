@@ -14,7 +14,7 @@ class DataFileUpdater
 		DataFileUpdater();
 		~DataFileUpdater();
 		
-		// use updated employee data to write new file 
+		// write updated employee data to file 
 		bool updateFile(string filename, EmployeeList* empList);
 		
 	private:
