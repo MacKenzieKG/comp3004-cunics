@@ -16,6 +16,8 @@ class DataFileUpdater
 		DataFileUpdater(EmployeeList* empList, string filename);
 		~DataFileUpdater();
 		
+		// use private data members (set by constructor) 
+		// to write new data file 
 		bool updateFile();
 		
 	private:
