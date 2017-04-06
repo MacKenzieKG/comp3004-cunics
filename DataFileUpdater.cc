@@ -1,8 +1,10 @@
 // DataFileUpdater.cc
 
 #include "DataFileUpdater.h"
+#include "defs.h"
 #include <ofstream>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -10,7 +12,7 @@ DataFileUpdater::DataFileUpdater() {}
 DataFileUpdater::~DataFileUpdater() {}
 
 // ** NOTE ** 
-// function assumes file format is CSV
+// File format is assumed to be CSV
 bool DataFileUpdater::updateFile(string filename, EmployeeList* empList)
 {
 	if (!empList || empList->size() < 1) {
@@ -18,12 +20,12 @@ bool DataFileUpdater::updateFile(string filename, EmployeeList* empList)
 		return false;
 	}
 	
-	// create output stream and open file 
-	// second parameter is a behaviour flag; 'trunc' means that if the file 	
+	// Create output stream and open file 
+	// Second parameter is a behaviour flag; 'trunc' means that if the file 	
 	// already exists, its contents will be deleted and replaced with new data 
 	ofstream outFile(filename, ios::trunc);
 	
-	// make sure file is actually open before trying anything
+	// Make sure file is actually open before trying anything
 	if (!outFile.is_open()) {
 		// error handling here ...
 		return false;
@@ -33,12 +35,75 @@ bool DataFileUpdater::updateFile(string filename, EmployeeList* empList)
 		Employee* employee = empList->getEmployee(i);
 		stringstream entry;
 		
-		entry << employee->getIDNumber() << "," << employee->getFirstName() 
-		      << "," << employee->getLastName() << ",";
+		// Need to deal with multiple roles
+		vector<Role*> roles;
+		for (int j=0; j < MAX_ROLE; ++j) {
+			Role* r = employee->getRoles()[j];
+			if (r != 0) {
+				roles.push_back(r);
+			}
+		}
 		
-		// need to deal with multiple roles
-		//...
+		for (int k=0; k < roles.size(); ++k) {
+			string fname = k==0 ? employee->getFirstName() : "";
+			string lname = k==0 ? employee->getLastName() : "";
+			
+			Role* r = roles.at(k);
+			RoleType rType = r->getRoleType();
+			RoleTime rTime = r->getRoleTime();
+			EmployeeType eType = employee->getEmployeeType();
+			
+			entry << employee->getIDNumber() << "," << fname << "," << lname 
+			      << "," << roleTypeToString(rType) << "," 
+					<< roleTimeToString(rTime) << "," 
+					<< employeeTypeToString(eType) << ","
+					<< employee->getStartDate() << "," << employee->getEndDate() 
+					<< "," << r->getPay() << "\n";
+		}
+		
+		outFile << entry.str();
 	}
 	
+	outFile.close();
 	return true;
+}
+
+string DataFileUpdater::roleTimeToString(RoleTime rt)
+{
+	switch (rt) {
+		case FULL_TIME:
+			return "Full-time";
+		case PART_TIME:
+			return "Part-time";
+		default:
+			return "";
+	}
+}
+
+string DataFileUpdater::roleTypeToString(RoleType rt)
+{
+	switch (rt) {
+		case STAFF:
+			return "Staff";
+		case FACULTY:
+			return "Faculty";
+		case TA:
+			return "TA";
+		case RA:
+			return "RA";
+		default:
+			return "";
+	}
+}
+
+string DataFileUpdater::employeeTypeToString(EmployeeType et)
+{
+	switch (et) {
+		case CONTINUING:
+			return "Continuing";
+		case TERM:
+			return "Term";
+		default:
+			return "";
+	}
 }
