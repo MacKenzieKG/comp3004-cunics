@@ -36,7 +36,7 @@ class Employee{
     	int removeRole(Role*);
     	int removeRole(RoleType);
     
-		double getSalary();
+		virtual double getSalary();
 		Role* findRole(RoleType,RoleTime);
 		
 		Role** getRoles();
@@ -46,7 +46,7 @@ class Employee{
 		int IDNumber;
         static int nextIDNum;
 		string firstName,lastName;
-		Role* roles[3];
+		Role* roles[64];
 		int size;
 		
 		EmployeeType employeeType;

@@ -10,6 +10,10 @@
 #define START_DATE 6
 #define END_DATE 7
 #define SALARY 8
+#define ON_LEAVE 9
+#define LEAVE_PERCENTAGE 10
+#define LEAVE_START 11
+#define LEAVE_END 12
 
 #include "TermEmployee.h"
 #include "ContinuingEmployee.h"

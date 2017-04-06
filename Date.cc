@@ -6,6 +6,18 @@ Date::Date(){
   year = 1970;
 }
 
+Date::Date(string str){
+	string temp = "" + str[0] + str[1] + str[2] + str[3];
+	istringstream ss(temp);
+	ss >> year;
+	temp = "" + str[5] + str[6];
+	ss.str(temp);
+	ss >> month;
+	temp = "" + str[8] + str[9];
+	ss.str(temp);
+	ss >> day;
+}
+
 Date::Date(int aDay, int aMonth, int aYear){
   day = aDay;
   month = aMonth;

@@ -13,25 +13,25 @@
 #include "Paystub.h"
 #include "EmployeeLoader.h"
 #include "EmployeeList.h"
+#include "EmployeeManager.h"
 
 using namespace std;
 
+class foo{
+	public:
+		virtual void func(){
+			cout << "Hello world" << endl;
+		}
+};
+
+class bar: public foo{
+	public:
+		void func(){
+			cout << "Hello to the world" << endl;
+		}
+};
+
 int main(int argc, char** argv){
-  /*Date* today = new Date();
-  Role* role1 = new Role(PART_TIME, TA, 12038.51);
-  Role* role2 = new Role(PART_TIME, RA, 1325.32);
-  Role* role3 = new Role(PART_TIME, TA, 7.01);
-  Employee* employee = new ContinuingEmployee("Nicholas", "Bright", role1);
-  employee->addRole(role2);
-  Paystub* paystub = new Paystub();
-  cout << "Today is " << today->getYear() << "/" << today->getMonth() << "/" << today->getDay() << endl;
-  cout << "Name: " << employee->getFirstName() << " " << employee->getLastName() << endl;
-  cout << "Salary: " << fixed << setprecision(2) << employee->getSalary() << endl;
-  cout << "ID: " << employee->getIDNumber() << endl;
-  cout << "Send help" << endl;
-  string test = "Nineteen characters";
-  cout << "Test: " << test << endl;
-  cout << "Length: " << test.length() << endl;*/
   EmployeeLoader* employeeLoader = new EmployeeLoader("employees.csv");
   EmployeeList* employeeList = new EmployeeList();
   employeeLoader->loadTo(employeeList);
@@ -48,6 +48,35 @@ int main(int argc, char** argv){
     cout << "Num roles: - " << emp->getSize() << endl;
     cout << "Salary: ---- " << fixed << setprecision(2) << "$" << emp->getSalary() << endl << endl;
   }
+  cout << endl << endl << "TESTING ROLES" << endl << endl;
+  for(int x=1;x<=10;x++){
+	  Employee* first = employeeList->getEmployeeByID(x);
+	  cout << "Name: " << first->getName() << endl;
+	  cout << "ID: " << first->getIDNumber() << endl << endl;
+	  for(int i=0;i<first->getSize();i++){
+	  	Role* role = first->getRoles()[i];
+		cout << "Type: ";
+		if(role->getRoleType() == FACULTY)
+			cout << "Faculty";
+		else if(role->getRoleType() == STAFF)
+			cout << "Staff";
+		else if(role->getRoleType() == RA)
+			cout << "RA";
+		else if(role->getRoleType() == TA)
+			cout << "TA";
+		cout << endl << "Time: ";
+		if(role->getRoleTime() == FULL_TIME)
+			cout << "Full-time";
+		else if(role->getRoleTime() == PART_TIME)
+			cout << "Part-time";
+		cout << endl << "Pay: " << role->getPay() << endl << endl;
+	  }
+  }
+  EmployeeManager employeeManager;
+  /*foo* a = new foo();
+  foo* b = new bar();
+  a->func();
+  b->func();*/
   system("PAUSE");
   return 0;
 }

@@ -3,13 +3,15 @@
 
 #include <string>
 #include <cstdlib>
-#include <ostream>
+#include <iostream>
+#include <sstream>
 
 using namespace std;
 
 class Date{
   public:
     Date();
+    Date(string);
     Date(int,int,int);
     
     void setDate(int,int,int);

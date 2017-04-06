@@ -12,13 +12,16 @@ class ContinuingEmployee: public Employee{
 		ContinuingEmployee();
 	    ContinuingEmployee(string, string, Date, Role*);
 		
-	    void startLeave(float, Date, Date);
+		double getLeavePercent();
+		void setLeavePercent(double);
+		
+		double getSalary();
+		
+	    void startLeave(double, Date, Date);
 	    void offLeave();
-
-    
 		
 	protected:
-		float leavePercentage;
+		double leavePercentage;
 		bool onLeave;
     	Date leaveStartDate, leaveEndDate;
     

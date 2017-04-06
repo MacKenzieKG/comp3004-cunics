@@ -24,11 +24,18 @@ void EmployeeLoader::loadTo(EmployeeList* list){
     tokenizer(line);
 	
 	if(tokenizedLine[EID] != lastEmployee){
-		if(tokenizedLine[TYPE] == "Term")
+		if(tokenizedLine[TYPE] == "Term"){
 	      newEmp = new TermEmployee();
-	    else if(tokenizedLine[TYPE] == "Continuing")
+	      Date eDate(tokenizedLine[END_DATE]);
+	      ((TermEmployee*)newEmp)->setEndDate(eDate);
+	    }
+	    else if(tokenizedLine[TYPE] == "Continuing"){
 	      newEmp = new ContinuingEmployee();
+	      if(tokenizedLine[ON_LEAVE] == "false")
+	      ((ContinuingEmployee*)newEmp)->startLeave(toDouble(tokenizedLine[LEAVE_PERCENTAGE]),*(new Date(tokenizedLine[LEAVE_START])),*(new Date(tokenizedLine[LEAVE_END])));
+	    }
 	    
+	    newEmp->setStartDate(*(new Date(tokenizedLine[START_DATE])));
 	    newEmp->setIDNumber(toInt(tokenizedLine[EID]));
 		newEmp->setFirstName(tokenizedLine[FIRST_NAME]);
 	  	newEmp->setLastName(tokenizedLine[LAST_NAME]);
@@ -41,7 +48,7 @@ void EmployeeLoader::loadTo(EmployeeList* list){
     if(tokenizedLine[ROLE] == "Staff")
       newRole->setRoleType(STAFF);
 
-    if(tokenizedLine[ROLE], "RA")
+    if(tokenizedLine[ROLE] == "RA")
       newRole->setRoleType(RA);
 
     if(tokenizedLine[ROLE] == "TA")
