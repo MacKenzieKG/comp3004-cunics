@@ -1,12 +1,12 @@
 #include "EmployeeManager.h"
 
 EmployeeManager::EmployeeManager(){
-	EmployeeLoader employeeLoader("employees.csv");
+	EmployeeLoader* employeeLoader = new EmployeeLoader("employees.csv");
 	
 	employeeList = new EmployeeList();
 	payrollLogin = new map<string,string>;
 
-	employeeLoader.loadTo(employeeList);
+	employeeLoader->loadTo(employeeList);
 }
 
 Employee* EmployeeManager::getEmployeeByIndex(int index){
@@ -84,3 +84,55 @@ int EmployeeManager::removeEmployee(string empID){
 	ss >> ID;
 	employeeList->removeEmployee(ID);
 }
+
+void EmployeeManager::giveRoleRaiseAmount(string roleType, string roleTime, string amount){
+	RoleType rType;
+	RoleTime rTime;
+	double a;
+	
+	istringstream ss(amount);
+	ss >> a;
+	
+	if(roleType == "Faculty")
+		rType = FACULTY;
+	else if(roleType == "Staff")
+		rType = STAFF;
+	else if(roleType == "TA")
+		rType = TA;
+	else
+		rType = RA;
+	
+	if(roleTime == "Full-time")
+		rTime = FULL_TIME;
+	else
+		rTime = PART_TIME;
+		
+	employeeList->giveRoleRaiseAmount(rType,rTime,a);
+}
+
+void EmployeeManager::giveRoleRaisePercent(string roleType, string roleTime, string amount){
+	RoleType rType;
+	RoleTime rTime;
+	double a;
+	
+	istringstream ss(amount);
+	ss >> a;
+	
+	if(roleType == "Faculty")
+		rType = FACULTY;
+	else if(roleType == "Staff")
+		rType = STAFF;
+	else if(roleType == "TA")
+		rType = TA;
+	else
+		rType = RA;
+	
+	if(roleTime == "Full-time")
+		rTime = FULL_TIME;
+	else
+		rTime = PART_TIME;
+		
+	employeeList->giveRoleRaisePercent(rType,rTime,a);
+}
+
+int EmployeeManager::getNumEmployees(){return employeeList->size();}

@@ -18,14 +18,7 @@
 #include "TermEmployee.h"
 #include "ContinuingEmployee.h"
 #include "EmployeeList.h"
-#include <iostream>
 #include <fstream>
-#include <string>
-#include <sstream>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <cmath>
 
 using namespace std;
 

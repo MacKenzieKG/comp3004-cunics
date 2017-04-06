@@ -17,8 +17,10 @@ class EmployeeManager {
 	    Employee* getEmployeeByName(std::string,std::string);
 		
 		int addNewEmployee(string,string,string,string,string,string,string,string);
-		//int giveRoleRaise(string,string,string)
 		int removeEmployee(string);
+		void giveRoleRaiseAmount(string,string,string);
+		void giveRoleRaisePercent(string,string,string);
+		int getNumEmployees();
 	private:
 		EmployeeList* employeeList;
 		map<std::string,std::string>* payrollLogin;
