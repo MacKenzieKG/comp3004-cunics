@@ -16,6 +16,8 @@ class EmployeeList {
     	Employee* getEmployeeByName(string,string);		
 		int size();
 		int removeEmployee(int);
+		void giveRoleRaiseAmount(RoleType, RoleTime, double);
+		void giveRoleRaisePercent(RoleType, RoleTime, double);
 		
 		Employee* operator[](int);
 	private:

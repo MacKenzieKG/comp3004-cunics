@@ -70,6 +70,36 @@ int EmployeeList::removeEmployee(int ID){
 	return -1; //Employee not in list
 }
 
+void EmployeeList::giveRoleRaiseAmount(RoleType roleType, RoleTime roleTime, double amount){
+	if(employeeVector->size() == 0)
+		return;
+	for(vector<Employee*>::iterator it = employeeVector->begin(); it != employeeVector->end(); ++it){
+		if((*it)->getEmployeeType() == CONTINUING){
+			for(int i=0;i<(*it)->getSize();i++){
+				if((*it)->getRoles()[i]->getRoleType() == roleType && (*it)->getRoles()[i]->getRoleTime() == roleTime){
+					(*it)->getRoles()[i]->giveRaise(amount);
+					return;
+				}
+			}
+		}
+	}
+}
+
+void EmployeeList::giveRoleRaisePercent(RoleType roleType, RoleTime roleTime, double amount){
+	if(employeeVector->size() == 0)
+		return;
+	for(vector<Employee*>::iterator it = employeeVector->begin(); it != employeeVector->end(); ++it){
+		if((*it)->getEmployeeType() == CONTINUING){
+			for(int i=0;i<(*it)->getSize();i++){
+				if((*it)->getRoles()[i]->getRoleType() == roleType && (*it)->getRoles()[i]->getRoleTime() == roleTime){
+					(*it)->getRoles()[i]->givePercentageRaise(amount);
+					return;
+				}
+			}
+		}
+	}
+}
+
 Employee* EmployeeList::operator[](int n){
   if(employeeVector->size() >= n)
     return NULL;
