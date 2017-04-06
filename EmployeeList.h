@@ -8,14 +8,17 @@ using namespace std;
 
 class EmployeeList {
 	public:
+		EmployeeList();
+		
 		int addEmployee(Employee*);
 		Employee* getEmployeeByIndex(int);
 		Employee* getEmployeeByID(int);
-    Employee* getEmployeeByName(string,string);
+    	Employee* getEmployeeByName(string,string);		
+		int size();
 		
 		Employee* operator[](int);
 	private:
-    vector<Employee*>* employeeVector;
+    	vector<Employee*>* employeeVector;
 };
 
 #endif

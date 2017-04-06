@@ -7,86 +7,96 @@ EmployeeLoader::EmployeeLoader(char* sourceFileName){
 }
 
 void EmployeeLoader::loadTo(EmployeeList* list){
-  char line[2000];
+  string line;
   char* res;
-  char lastEmployee[256];
-  char lastField[256];
+  string lastEmployee;
+  string lastField;
 
-  lastEmployee[0] = '\0';
-  lastField[0] = '\0';
-
+  int count = 1;
+  
+  lastEmployee = "";
+  getline(inFile,line);
+  
+  Employee* newEmp = 0;
+  
   while(!(inFile.eof())){
-    res = fgets(line, 2000, inFile);
-
-    if(res == NULL)
-      break;
-
+	getline(inFile,line);
     tokenizer(line);
-
-    Employee* newEmp = 0;
-		
-    if(strcmp(tokenizedLine[TYPE], "Term") == 0)
-      newEmp = new TermEmployee();
 	
-    else if(strcmp(tokenizedLine[TYPE], "Continuing") == 0)
-      newEmp = new ContinuingEmployee();
-   
-  //This check is for if it's the same employee number as last time; not sure if it works so it's commented out for now  
-  //  if(strcmp(tokenizedLine[EID], lastEmployee) != 0) {
-      newEmp->setIDNumber(tokenizedLine[EID]);
-      newEmp->setFirstName(tokenizedLine[FIRST_NAME]);
-      newEmp->setLastNAme(tokenizedLine[LAST_NAME]);
-   // }
-
+	if(tokenizedLine[EID] != lastEmployee){
+		if(tokenizedLine[TYPE] == "Term")
+	      newEmp = new TermEmployee();
+	    else if(tokenizedLine[TYPE] == "Continuing")
+	      newEmp = new ContinuingEmployee();
+	    
+	    newEmp->setIDNumber(toInt(tokenizedLine[EID]));
+		newEmp->setFirstName(tokenizedLine[FIRST_NAME]);
+	  	newEmp->setLastName(tokenizedLine[LAST_NAME]);
+	}
     Role* newRole = new Role();
-    if(strcmp(tokenizedLine[ROLE], "Faculty")	== 0)
+    if(tokenizedLine[ROLE] == "Faculty")
       newRole->setRoleType(FACULTY);
 
-    if(strcmp(tokenizedLine[ROLE], "Staff") == 0)
+    if(tokenizedLine[ROLE] == "Staff")
       newRole->setRoleType(STAFF);
 
-    if(strcmp(tokenizedLine[ROLE], "RA") == 0)
+    if(tokenizedLine[ROLE], "RA")
       newRole->setRoleType(RA);
 
-    if(strcmp(tokenizedLine[ROLE], "TA") == 0)
+    if(tokenizedLine[ROLE] == "TA")
       newRole->setRoleType(TA);
 
-    if(strcmp(tokenizedLine[TIME], "Part-time") == 0)
+    if(tokenizedLine[HOURS] == "Part-time")
       newRole->setRoleTime(PART_TIME);
 
-    if(strcmp(tokenizedLine[TIME], "Full-time") == 0)
+    if(tokenizedLine[HOURS] == "Full-time")
       newRole->setRoleTime(FULL_TIME);			
-			
+	
+	newRole->setPay(toDouble(tokenizedLine[SALARY]));
+	
     newEmp->addRole(newRole);
-			
+	
     list->addEmployee(newEmp);
     
 
-    strcpy(lastField, tokenizedLine[END_DATE]);
-    strcpy(lastEmployee, tokenizedLine[EID]);
+    lastField = tokenizedLine[END_DATE];
+    lastEmployee = tokenizedLine[EID];
   }
 }
 
 
-int EmployeeLoader::tokenizer(char line[2000]) {
-  char* t = ",\n";
-
-  int n = 0;
-  int numRead = 0;
-
-  char* token = strtok(line, t);
-  strcpy(tokenizedLine[numRead++], token);
-
-  int tot = 0;
-  while (token != NULL) {
-    token - strtok(NULL, t);
-
-    if(token == NULL) {
-      return numRead;
-    }
-
-    strcpy(tokenizedLine[numRead++], token);
+void EmployeeLoader::tokenizer(string line) {
+  char end = '\n';
+  char delim = ',';
+	
+  cleanTokenizedLine();
+  
+  int i = 0;
+  
+  for(int n = 0; n < line.length(); n++){
+  	if(line[n] != delim)
+  		tokenizedLine[i] += line[n];
+  	else
+  		i++;
   }
+}
 
-  return numRead;
+int EmployeeLoader::toInt(string str){
+	istringstream ss(str);
+    int q;
+    ss >> q;
+    return q;
+}
+
+double EmployeeLoader::toDouble(string str){
+	istringstream ss(str);
+    double q;
+    ss >> q;
+    return q;
+}
+
+void EmployeeLoader::cleanTokenizedLine(){
+	for(int i=0;i<16;i++){
+		tokenizedLine[i] = "";
+	}
 }

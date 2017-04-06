@@ -2,9 +2,11 @@
 #define EMPLOYEEMANAGER_H
 
 #include <string>
-#include "PayrollLoginLoader.h"
+#include <map>
 #include "EmployeeLoader.h"
 #include "Role.h"
+
+using namespace std;
 
 class EmployeeManager {
 	public:

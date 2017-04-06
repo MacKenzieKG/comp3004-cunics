@@ -11,11 +11,13 @@
 #include "ContinuingEmployee.h"
 #include "TermEmployee.h"
 #include "Paystub.h"
+#include "EmployeeLoader.h"
+#include "EmployeeList.h"
 
 using namespace std;
 
 int main(int argc, char** argv){
-  Date* today = new Date();
+  /*Date* today = new Date();
   Role* role1 = new Role(PART_TIME, TA, 12038.51);
   Role* role2 = new Role(PART_TIME, RA, 1325.32);
   Role* role3 = new Role(PART_TIME, TA, 7.01);
@@ -29,7 +31,23 @@ int main(int argc, char** argv){
   cout << "Send help" << endl;
   string test = "Nineteen characters";
   cout << "Test: " << test << endl;
-  cout << "Length: " << test.length() << endl;
+  cout << "Length: " << test.length() << endl;*/
+  EmployeeLoader* employeeLoader = new EmployeeLoader("employees.csv");
+  EmployeeList* employeeList = new EmployeeList();
+  employeeLoader->loadTo(employeeList);
+  for(int i=0;i<employeeList->size();i++){
+    Employee* emp = employeeList->getEmployeeByIndex(i);
+	cout << "Name: ------ " << emp->getName() << endl;
+    cout << "ID: -------- " << emp->getIDNumber() << endl;
+    cout << "Type: ------ ";
+	if(emp->getEmployeeType() == TERM)
+    	cout << "Term Employee";
+    else if(emp->getEmployeeType() == CONTINUING)
+    	cout << "Continuing Employee";
+    cout << endl;
+    cout << "Num roles: - " << emp->size << endl;
+    cout << "Salary: ---- " << emp->getSalary() << endl << endl;
+  }
   system("PAUSE");
   return 0;
 }

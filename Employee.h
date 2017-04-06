@@ -7,6 +7,10 @@ using namespace std;
 #include "Role.h"
 #include "PaystubList.h"
 
+#include <iostream>
+
+using namespace std;
+
 class EmployeeLoader;
 
 class Employee{
@@ -24,6 +28,7 @@ class Employee{
 		void setLastName(string);
 		Date getStartDate();
 		void setStartDate(Date);
+		EmployeeType getEmployeeType();
     
     	int getIDNumber();
     
@@ -32,15 +37,15 @@ class Employee{
     	int removeRole(RoleType);
     
 		double getSalary();
-
-        void generateNewPaystub();
-	
+		
+		Role* roles[3];
+		int size;
 	protected:
-        int size;
+        
 		int IDNumber;
         static int nextIDNum;
 		string firstName,lastName;
-		Role* roles[3];
+		
 		EmployeeType employeeType;
 		Date startDate;
     

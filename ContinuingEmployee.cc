@@ -18,7 +18,5 @@ void ContinuingEmployee::offLeave(){
 }
 
 bool ContinuingEmployee::approveRole(Role* role){
-  if(role->getRoleTime() == FULL_TIME && size > 0)
-  	return false;
   return true;
 }

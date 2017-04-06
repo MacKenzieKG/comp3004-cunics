@@ -1,15 +1,13 @@
 #include "EmployeeManager.h"
 
 EmployeeManager::EmployeeManager(){
-	EmployeeLoader employeeLoader("employeeInfo.txt");
-	PayrollLoginLoader payrollLoginLoader("payrollLogin.txt");
+	EmployeeLoader employeeLoader("employees.csv");
 	
 	employeeList = new EmployeeList();
 	paystubList = new vector<PaystubList*>();
 	payrollLogin = new map<string,string>;
 
 	employeeLoader.loadTo(employeeList);
-	payrollLoginLoader.loadTo(payrollLogin);
 }
 
 Employee* EmployeeManager::getEmployeeByIndex(int index){

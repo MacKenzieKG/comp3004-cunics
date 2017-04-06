@@ -13,7 +13,7 @@ Date TermEmployee::getEndDate(){return endDate;}
 void TermEmployee::setEndDate(Date newEnd){endDate = newEnd;}
 
 bool TermEmployee::approveRole(Role* role){
-  if(role->getRoleType() != FACULTY){
+  /*if(role->getRoleType() != FACULTY){
     if(role->getRoleTime() != PART_TIME){
       for(int i=0; i<size; i++){
         if(roles[i]->getRoleType() == role->getRoleType())
@@ -22,5 +22,6 @@ bool TermEmployee::approveRole(Role* role){
       return true;
     }
   }
-  return false;
+  return false;*/
+  return true;
 }

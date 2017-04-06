@@ -1,22 +1,27 @@
 #include "EmployeeList.h"
 
+EmployeeList::EmployeeList(){
+	employeeVector = new vector<Employee*>();
+}
+
 int EmployeeList::addEmployee(Employee* emp){
 	if(employeeVector->size() == 0){
-    employeeVector->push_back(emp);
-    return 1;
-  }
+      employeeVector->push_back(emp);
+	  return 1;
+    }
 	else {
-    for(vector<Employee*>::iterator it = employeeVector->begin(); it != employeeVector->end(); ++it){
-      if((*it)->getIDNumber() > emp->getIDNumber()){
-        it++;
-        employeeVector->insert(it, emp);
-				return 1;
-			}
-      else if((*it)->getIDNumber() == emp->getIDNumber())
-				return -1; //Employee is already in list, employeeID must be unique
+      for(vector<Employee*>::iterator it = employeeVector->begin(); it != employeeVector->end(); ++it){
+        if((*it)->getIDNumber() > emp->getIDNumber()){
+          //it++;
+          employeeVector->insert(it, emp);
+		  return 1;
 		}
-		employeeVector->push_back(emp);
-		return 1;
+        else if((*it)->getIDNumber() == emp->getIDNumber()){
+		  return -1; //Employee is already in list, employeeID must be unique
+		}
+	  }
+	  employeeVector->push_back(emp);
+	  return 1;
 	}
 	return -1; //Should never be reached
 }
@@ -26,7 +31,7 @@ Employee* EmployeeList::getEmployeeByIndex(int n){
 }
 
 Employee* EmployeeList::getEmployeeByID(int ID){
-  if(employeeVector->size() == (unsigned)0)
+  if(employeeVector->size() == 0)
     return NULL; //Invalid, list is empty
   for(vector<Employee*>::iterator it = employeeVector->begin(); it != employeeVector->end(); ++it){
     if((*it)->getIDNumber() == ID)
@@ -47,6 +52,10 @@ Employee* EmployeeList::getEmployeeByName(string fName, string lName){
     }
   }
   return NULL;
+}
+
+int EmployeeList::size(){
+	return employeeVector->size();
 }
 
 Employee* EmployeeList::operator[](int n){

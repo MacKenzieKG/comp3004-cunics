@@ -1,8 +1,13 @@
 #include "Employee.h"
 
-int Employee::nextIDNum = 100000;
+int Employee::nextIDNum = 0;
 
-Employee::Employee(){}
+Employee::Employee(){
+	firstName = "";
+	lastName = "";
+	IDNumber = 0;
+	size = 0;
+}
 
 Employee::Employee(string fName, string lName){
 	firstName = fName;
@@ -28,12 +33,14 @@ void Employee::setLastName(string lName){lastName = lName;}
 int Employee::getIDNumber(){return IDNumber;}
 Date Employee::getStartDate(){return startDate;}
 void Employee::setStartDate(Date newStart){startDate = newStart;}
+EmployeeType Employee::getEmployeeType(){return employeeType;}
 
 int Employee::addRole(Role* role){
   if(!approveRole(role))
 	  return -1;
 
-  roles[size++] = role;
+  roles[size] = role;
+  size+=1;
   return 1;
 }
 
@@ -81,6 +88,7 @@ double Employee::getSalary(){
 
 void Employee::setIDNumber(int empNum){
 	IDNumber = empNum;
-	if(empNum > nextIDNum)
+	if(empNum > nextIDNum){
 		nextIDNum = empNum+1;
+	}
 }

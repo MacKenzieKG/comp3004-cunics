@@ -9,6 +9,7 @@
 #define TYPE 5
 #define START_DATE 6
 #define END_DATE 7
+#define SALARY 8
 
 #include "TermEmployee.h"
 #include "ContinuingEmployee.h"
@@ -27,16 +28,16 @@ using namespace std;
 class EmployeeLoader {
 	public:
         EmployeeLoader(char*);	
-	int loadTo(EmployeeList*);
+		void loadTo(EmployeeList*);
 
 	private:
-	ifstream inFile;
-	char id[256];
-	char tokenizedLine[52][512];
-        void parseAttribute(string,string*);
-        void readAndParse(string*);
-	int tokenizer(char);
-	void readFile(ifstream, EmployeeList*);
+		ifstream inFile;
+		string tokenizedLine[16];
+		
+		void tokenizer(string);
+		int toInt(string);
+		double toDouble(string);
+		void cleanTokenizedLine();
 };
 
 #endif
