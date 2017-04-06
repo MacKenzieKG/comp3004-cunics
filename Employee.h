@@ -37,6 +37,7 @@ class Employee{
     	int removeRole(RoleType);
     
 		double getSalary();
+		Role* findRole(RoleType,RoleTime);
 		
 		Role** getRoles();
 		int getSize();

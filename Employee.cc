@@ -87,6 +87,12 @@ double Employee::getSalary(){
   return total;
 }
 
+Role* Employee::findRole(RoleType roleType, RoleTime roleTime){
+	for(int i=0;i<size;i++)
+		if(roles[i]->getRoleTime() == roleTime && roles[i]->getRoleType() == roleType)
+			return roles[i];
+}
+
 void Employee::setIDNumber(int empNum){
 	IDNumber = empNum;
 	if(empNum > nextIDNum){
