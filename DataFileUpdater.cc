@@ -1,8 +1,9 @@
 // DataFileUpdater.cc
 
 #include "DataFileUpdater.h"
+#include "Date.h"
 #include "defs.h"
-#include <ofstream>
+#include <fstream>
 #include <sstream>
 #include <vector>
 
