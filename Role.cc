@@ -8,14 +8,14 @@ Role::Role(RoleTime time, RoleType type){
   pay = 0.0;
 }
 
-Role::Role(RoleTime time, RoleType type, float initialPay){
+Role::Role(RoleTime time, RoleType type, double initialPay){
 	roleTime = time;
 	roleType = type;
   pay = initialPay;
 }
 
-float Role::getPay(){return pay;}
-void Role::setPay(float newPay){pay = newPay;}
+double Role::getPay(){return pay;}
+void Role::setPay(double newPay){pay = newPay;}
 
 RoleTime Role::getRoleTime(){return roleTime;}
 void Role::setRoleTime(RoleTime aRoleTime){roleTime = aRoleTime;}
@@ -23,5 +23,5 @@ void Role::setRoleTime(RoleTime aRoleTime){roleTime = aRoleTime;}
 RoleType Role::getRoleType(){return roleType;}
 void Role::setRoleType(RoleType aRoleType){roleType = aRoleType;}
 
-void Role::givePercentageRaise(float raise){pay += pay * raise;}
-void Role::giveRaise(float raise){pay += raise;}
+void Role::givePercentageRaise(double raise){pay += pay * raise;}
+void Role::giveRaise(double raise){pay += raise;}

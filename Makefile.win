@@ -1,0 +1,64 @@
+# Project: TestingProject
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = ContinuingEmployee.o Date.o DIT.o Employee.o EmployeeList.o EmployeeManager.o main.o PayrollLoginLoader.o Paystub.o PaystubList.o Role.o TermEmployee.o EmployeeLoader.o
+LINKOBJ  = ContinuingEmployee.o Date.o DIT.o Employee.o EmployeeList.o EmployeeManager.o main.o PayrollLoginLoader.o Paystub.o PaystubList.o Role.o TermEmployee.o EmployeeLoader.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = TestingProject.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+ContinuingEmployee.o: ContinuingEmployee.cc
+	$(CPP) -c ContinuingEmployee.cc -o ContinuingEmployee.o $(CXXFLAGS)
+
+Date.o: Date.cc
+	$(CPP) -c Date.cc -o Date.o $(CXXFLAGS)
+
+DIT.o: DIT.cc
+	$(CPP) -c DIT.cc -o DIT.o $(CXXFLAGS)
+
+Employee.o: Employee.cc
+	$(CPP) -c Employee.cc -o Employee.o $(CXXFLAGS)
+
+EmployeeList.o: EmployeeList.cc
+	$(CPP) -c EmployeeList.cc -o EmployeeList.o $(CXXFLAGS)
+
+EmployeeManager.o: EmployeeManager.cc
+	$(CPP) -c EmployeeManager.cc -o EmployeeManager.o $(CXXFLAGS)
+
+main.o: main.cc
+	$(CPP) -c main.cc -o main.o $(CXXFLAGS)
+
+PayrollLoginLoader.o: PayrollLoginLoader.cc
+	$(CPP) -c PayrollLoginLoader.cc -o PayrollLoginLoader.o $(CXXFLAGS)
+
+Paystub.o: Paystub.cc
+	$(CPP) -c Paystub.cc -o Paystub.o $(CXXFLAGS)
+
+PaystubList.o: PaystubList.cc
+	$(CPP) -c PaystubList.cc -o PaystubList.o $(CXXFLAGS)
+
+Role.o: Role.cc
+	$(CPP) -c Role.cc -o Role.o $(CXXFLAGS)
+
+TermEmployee.o: TermEmployee.cc
+	$(CPP) -c TermEmployee.cc -o TermEmployee.o $(CXXFLAGS)
+
+EmployeeLoader.o: EmployeeLoader.cc
+	$(CPP) -c EmployeeLoader.cc -o EmployeeLoader.o $(CXXFLAGS)

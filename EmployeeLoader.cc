@@ -3,103 +3,101 @@
 using namespace std;
 
 EmployeeLoader::EmployeeLoader(char* sourceFileName){
-    inFile.open(sourceFileName, ifstream::in);
+  inFile.open(sourceFileName, ifstream::in);
 }
 
-int EmployeeLoader::loadTo(EmployeeList* list){
-    string parsedLine[2] = {"",""};
-	while(parsedLine[1] != "FILE" && !(inFile.eof())){
-    readAndParse(parsedLine);
-		
-		Employee* newEmp = 0;
-		
-		if(parsedLine[0] == "Type"){
-			if(parsedLine[1] == "TermEmployee")
-				newEmp = new TermEmployee();
-			else if(parsedLine[1] == "ContinuingEmployee")
-				newEmp = new ContinuingEmployee();
-		}
-		
-    readAndParse(parsedLine);
+void EmployeeLoader::loadTo(EmployeeList* list){
+  string line;
+  char* res;
+  string lastEmployee;
+  string lastField;
 
-    istringstream ss(parsedLine[1]);
+  int count = 1;
+  
+  lastEmployee = "";
+  getline(inFile,line);
+  
+  Employee* newEmp = 0;
+  
+  while(!(inFile.eof())){
+	getline(inFile,line);
+    tokenizer(line);
+	
+	if(tokenizedLine[EID] != lastEmployee){
+		if(tokenizedLine[TYPE] == "Term")
+	      newEmp = new TermEmployee();
+	    else if(tokenizedLine[TYPE] == "Continuing")
+	      newEmp = new ContinuingEmployee();
+	    
+	    newEmp->setIDNumber(toInt(tokenizedLine[EID]));
+		newEmp->setFirstName(tokenizedLine[FIRST_NAME]);
+	  	newEmp->setLastName(tokenizedLine[LAST_NAME]);
+	}
+	
+    Role* newRole = new Role();
+    if(tokenizedLine[ROLE] == "Faculty")
+      newRole->setRoleType(FACULTY);
+
+    if(tokenizedLine[ROLE] == "Staff")
+      newRole->setRoleType(STAFF);
+
+    if(tokenizedLine[ROLE], "RA")
+      newRole->setRoleType(RA);
+
+    if(tokenizedLine[ROLE] == "TA")
+      newRole->setRoleType(TA);
+
+    if(tokenizedLine[HOURS] == "Part-time")
+      newRole->setRoleTime(PART_TIME);
+
+    if(tokenizedLine[HOURS] == "Full-time")
+      newRole->setRoleTime(FULL_TIME);			
+	
+	newRole->setPay(toDouble(tokenizedLine[SALARY]));
+	
+    newEmp->addRole(newRole);
+	
+    list->addEmployee(newEmp);
+    
+
+    lastField = tokenizedLine[END_DATE];
+    lastEmployee = tokenizedLine[EID];
+  }
+}
+
+
+void EmployeeLoader::tokenizer(string line) {
+  char end = '\n';
+  char delim = ',';
+	
+  cleanTokenizedLine();
+  
+  int i = 0;
+  
+  for(int n = 0; n < line.length(); n++){
+  	if(line[n] != delim)
+  		tokenizedLine[i] += line[n];
+  	else
+  		i++;
+  }
+}
+
+int EmployeeLoader::toInt(string str){
+	istringstream ss(str);
     int q;
     ss >> q;
-
-    if(parsedLine[0] == "EmployeeID"){
-        newEmp->setIDNumber(q);
-		}
-		
-    readAndParse(parsedLine);
-		
-		if(parsedLine[0] == "FirstName"){
-      newEmp->setFirstName(parsedLine[1]);
-		}
-    
-    readAndParse(parsedLine);
-		
-		if(parsedLine[0] == "LastName"){
-      newEmp->setLastName(parsedLine[1]);
-		}
-		
-    readAndParse(parsedLine);
-		
-		while(parsedLine[0] != "END"){
-			Role* newRole = new Role();
-			if(parsedLine[0] == "Role"){
-        if(parsedLine[1] == "Faculty") {
-            newRole->setRoleType(FACULTY);
-        }
-        else if (parsedLine[1] == "Staff"){
-            newRole->setRoleType(STAFF);
-        }
-        else if (parsedLine[1] == "TA"){
-            newRole->setRoleType(TA);
-        }
-        else if (parsedLine[1] == "RA"){
-            newRole->setRoleType(RA);
-				}
-			}
-			
-      readAndParse(parsedLine);
-			
-			if(parsedLine[0] == "RoleTime"){
-				if(parsedLine[1] == "PART_TIME")
-					newRole->setRoleTime(PART_TIME);
-				else if (parsedLine[1] == "FULL_TIME")
-					newRole->setRoleTime(FULL_TIME);
-			}
-			
-			newEmp->addRole(newRole);
-			
-            readAndParse(parsedLine);
-		}
-		
-		if(parsedLine[1] == "EMPLOYEE" || parsedLine[1] == "FILE"){
-            list->addEmployee(newEmp);
-		}
-	}
-    return NULL;
+    return q;
 }
 
-void EmployeeLoader::parseAttribute(string toParse, string parsed[2]){
-	int currPos=0;
-    parsed[0] = "";
-    parsed[1] = "";
-    for(int i=0;(unsigned)i<toParse.size();i++){
-        if(toParse[i] == ':')
-			currPos++;
-		else
-			parsed[currPos]+=toParse[i];
-    }
+double EmployeeLoader::toDouble(string str){
+	istringstream ss(str);
+    double q;
+    ss >> q;
+    return q;
 }
 
-void EmployeeLoader::readAndParse(string parse[2]){
-	char* currLine = 0;
-	
-	if(inFile.good() && !inFile.eof()){
-        inFile.getline(currLine,MAX_STR);
+void EmployeeLoader::cleanTokenizedLine(){
+	for(int i=0;i<16;i++){
+		tokenizedLine[i] = "";
 	}
-	
-    parseAttribute(currLine, parse);
 }

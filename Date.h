@@ -3,6 +3,7 @@
 
 #include <string>
 #include <cstdlib>
+#include <ostream>
 
 using namespace std;
 
@@ -19,8 +20,21 @@ class Date{
     int getMonth();
     void setYear(int);
     int getYear();
+    
+    Date& operator=(Date);
+    bool operator==(Date);
+    bool operator>(Date);
+    bool operator<(Date);
+    bool operator>=(Date);
+    bool operator<=(Date);
+    ostream& operator<<(ostream& os);
+
+    int weeksSince(Date date);
+    
   private:
     int day, month, year;
+
+    int convertToDays();
 };
 
 #endif
