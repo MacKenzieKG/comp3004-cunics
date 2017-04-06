@@ -18,6 +18,11 @@
 #define PERCENT_PAY 14
 #define LEAVE_END 15
 
+#include "EmployeeList.h"
+#include "ContinuingEmployee.h"
+#include "TermEmployee.h"
+#include <fstream>
+
 using namespace std;
 
 class DIT{

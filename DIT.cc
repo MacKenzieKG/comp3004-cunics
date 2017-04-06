@@ -73,10 +73,10 @@ void DIT::loadTo(EmployeeList* list) {
         if(tokenizedLine[ROLE] == "Staff")
           role = STAFF;
 
-        if(tokenizedLine[TIME] == "Part-time")
+        if(tokenizedLine[HOURS] == "Part-time")
           time = PART_TIME;
 
-        if(tokenizedLine[TIME] == "Full-time")
+        if(tokenizedLine[HOURS] == "Full-time")
           time = FULL_TIME;
 
         Role* empRole = emp->findRole(role, time);
