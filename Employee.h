@@ -17,7 +17,7 @@ class Employee{
   friend EmployeeLoader;
 	public:
 		Employee();
-		Employee (string, string);
+		Employee (string, string, Date);
     	Employee (string, string, int); //Use this constructor when loading from the files
 
     	string getName();
@@ -38,13 +38,15 @@ class Employee{
     
 		double getSalary();
 		
-		Role* roles[3];
-		int size;
+		Role** getRoles();
+		int getSize();
 	protected:
         
 		int IDNumber;
         static int nextIDNum;
 		string firstName,lastName;
+		Role* roles[3];
+		int size;
 		
 		EmployeeType employeeType;
 		Date startDate;

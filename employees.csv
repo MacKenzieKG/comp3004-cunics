@@ -1,5 +1,5 @@
 EID,First name,Last name,Role,Hours,Type,Start date,End date,Salary
-1,Lena,Oxton,TA,Part-time,Term,2017-01-04,2017-04-07,10
+1,Lena,Oxton,TA,Part-time,Term,2017-01-04,2017-04-07,10.50
 1,,,Staff,Part-time,Continuing,2017-01-04,null,15
 4,Angela,Ziegler,Faculty,Full-time,Continuing,2015-09-02,null,10
 3,Fareeha,Amari,TA,Part-time,Term,2017-01-04,2017-04-07,10

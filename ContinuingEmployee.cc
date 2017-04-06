@@ -1,8 +1,9 @@
 #include "ContinuingEmployee.h"
 
-ContinuingEmployee::ContinuingEmployee(){}
+ContinuingEmployee::ContinuingEmployee(){employeeType = CONTINUING;}
 
-ContinuingEmployee::ContinuingEmployee(string fName, string lName, Role* role): Employee (fName, lName){
+ContinuingEmployee::ContinuingEmployee(string fName, string lName, Date sDate, Role* role): Employee (fName, lName, sDate){
+	employeeType = CONTINUING;
 	addRole(role);
 }
 

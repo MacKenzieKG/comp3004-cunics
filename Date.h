@@ -10,7 +10,6 @@ using namespace std;
 class Date{
   public:
     Date();
-    Date(string);
     Date(int,int,int);
     
     void setDate(int,int,int);
@@ -31,7 +30,6 @@ class Date{
     ostream& operator<<(ostream& os);
 
     int weeksSince(Date date);
-    int fromString(string);
     
   private:
     int day, month, year;

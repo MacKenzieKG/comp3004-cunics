@@ -15,6 +15,7 @@ class EmployeeList {
 		Employee* getEmployeeByID(int);
     	Employee* getEmployeeByName(string,string);		
 		int size();
+		int removeEmployee(int);
 		
 		Employee* operator[](int);
 	private:

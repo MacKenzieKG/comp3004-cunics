@@ -58,6 +58,18 @@ int EmployeeList::size(){
 	return employeeVector->size();
 }
 
+int EmployeeList::removeEmployee(int ID){
+	if(employeeVector->size() == 0)
+		return -1;
+	for(vector<Employee*>::iterator it = employeeVector->begin();it != employeeVector->end(); ++it){
+		if((*it)->getIDNumber() == ID){
+			employeeVector->erase(it);
+			return 1;
+		}
+	}
+	return -1; //Employee not in list
+}
+
 Employee* EmployeeList::operator[](int n){
   if(employeeVector->size() >= n)
     return NULL;

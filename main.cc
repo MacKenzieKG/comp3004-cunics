@@ -45,8 +45,8 @@ int main(int argc, char** argv){
     else if(emp->getEmployeeType() == CONTINUING)
     	cout << "Continuing Employee";
     cout << endl;
-    cout << "Num roles: - " << emp->size << endl;
-    cout << "Salary: ---- " << emp->getSalary() << endl << endl;
+    cout << "Num roles: - " << emp->getSize() << endl;
+    cout << "Salary: ---- " << fixed << setprecision(2) << "$" << emp->getSalary() << endl << endl;
   }
   system("PAUSE");
   return 0;

@@ -10,7 +10,7 @@ using namespace std;
 class ContinuingEmployee: public Employee{
 	public:
 		ContinuingEmployee();
-	    ContinuingEmployee(string, string, Role*);
+	    ContinuingEmployee(string, string, Date, Role*);
 		
 	    void startLeave(float, Date, Date);
 	    void offLeave();

@@ -33,6 +33,7 @@ void EmployeeLoader::loadTo(EmployeeList* list){
 		newEmp->setFirstName(tokenizedLine[FIRST_NAME]);
 	  	newEmp->setLastName(tokenizedLine[LAST_NAME]);
 	}
+	
     Role* newRole = new Role();
     if(tokenizedLine[ROLE] == "Faculty")
       newRole->setRoleType(FACULTY);

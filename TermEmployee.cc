@@ -2,8 +2,7 @@
 
 TermEmployee::TermEmployee(){employeeType = TERM;}
 
-TermEmployee::TermEmployee(string fName, string lName, Date sDate, Date eDate, Role* role):Employee (fName, lName){
-	startDate = sDate ;
+TermEmployee::TermEmployee(string fName, string lName, Date sDate, Date eDate, Role* role):Employee (fName, lName, sDate){
 	endDate = eDate;
     employeeType = TERM;
   	addRole(role);

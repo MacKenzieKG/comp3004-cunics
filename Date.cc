@@ -6,10 +6,6 @@ Date::Date(){
   year = 1970;
 }
 
-Date::Date(string from){
-	fromString(from);
-}
-
 Date::Date(int aDay, int aMonth, int aYear){
   day = aDay;
   month = aMonth;
@@ -79,11 +75,6 @@ ostream& Date::operator<<(ostream& os){
 
 int Date::weeksSince(Date date){
   return 0;
-}
-
-int Date::fromString(string from){
-	string hold;
-	
 }
 
 int Date::convertToDays(){

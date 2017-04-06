@@ -16,14 +16,12 @@ class EmployeeManager {
 	    Employee* getEmployeeByID(int);
 	    Employee* getEmployeeByName(std::string,std::string);
 		
-		int addNewEmployee(string,string,string,string,string,string);
-		
-		vector<Paystub*>* getPaystubsForDate(Date);
-		 
+		int addNewEmployee(string,string,string,string,string,string,string,string);
+		//int giveRoleRaise(string,string,string)
+		int removeEmployee(string);
 	private:
 		EmployeeList* employeeList;
-		vector<PaystubList*>* paystubList;
-    	map<std::string,std::string>* payrollLogin;
+		map<std::string,std::string>* payrollLogin;
 };
 
 #endif

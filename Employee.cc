@@ -9,10 +9,11 @@ Employee::Employee(){
 	size = 0;
 }
 
-Employee::Employee(string fName, string lName){
+Employee::Employee(string fName, string lName, Date sDate){
 	firstName = fName;
 	lastName = lName;
 	IDNumber = nextIDNum++;
+	startDate = sDate;
 	size = 0;
 }
 
@@ -92,3 +93,6 @@ void Employee::setIDNumber(int empNum){
 		nextIDNum = empNum+1;
 	}
 }
+
+Role** Employee::getRoles(){return roles;}
+int Employee::getSize(){return size;}
