@@ -26,7 +26,13 @@ Date::Date(int aDay, int aMonth, int aYear){
 
 
 void Date::setDate(int aDay, int aMonth, int aYear){day = aDay; month = aMonth; year = aYear;}
-string Date::getDate(){return "TODO";}
+string Date::getDate(){
+  string hold;
+  stringstream ss;
+  ss << day << "-" << month << "-" << year;
+  ss >> hold;	
+  return hold;
+}
 void Date::setDay(int aDay){day = aDay;}
 int Date::getDay(){return day;}
 void Date::setMonth(int aMonth){month = aMonth;}
